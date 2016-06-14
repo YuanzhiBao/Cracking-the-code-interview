@@ -2,28 +2,30 @@
 #include <cstdio>
 using namespace std;
 
-void swap(&a, &b)
+void swap(char &a, char &b)
 {
     a = a^b;
     b = a^b;
     a = a^b;
 }
 
-void reversel(string s)
+void reversel(char *s)
 {
-    if(!s) reture false;
-    int *p = *q = s;
+    if(!s) return;
+    char *p = s, *q = s;
     while(*q) q++;
+    q--;
     while(q>p)
-    {   
-        swap(p++, q++);
+    {
+        swap(*p++, *q--);
     }
-    return 0;
+    //return 0;
 }
 
-main()
+int main()
 {
-    string s = "afwlgwg";
+    char s[] = "afwlgwg"; //char s是当做字符串数组来操作。 s就是第一个字符的地址。
     reversel(s);
-    cout<<s<<'\n'<<endl
+    cout<< s <<'\n'<<endl;
+    return 0;
 }
