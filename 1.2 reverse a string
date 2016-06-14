@@ -1,0 +1,29 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+void swap(&a, &b)
+{
+    a = a^b;
+    b = a^b;
+    a = a^b;
+}
+
+void reversel(string s)
+{
+    if(!s) reture false;
+    int *p = *q = s;
+    while(*q) q++;
+    while(q>p)
+    {   
+        swap(p++, q++);
+    }
+    return 0;
+}
+
+main()
+{
+    string s = "afwlgwg";
+    reversel(s);
+    cout<<s<<'\n'<<endl
+}
