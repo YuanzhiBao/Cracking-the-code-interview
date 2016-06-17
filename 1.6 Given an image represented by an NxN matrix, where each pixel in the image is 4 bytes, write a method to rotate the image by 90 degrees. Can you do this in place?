@@ -1,0 +1,84 @@
+//
+//  main.cpp
+//  fuckyou!!!!
+//
+//  Created by BRabbit on 16/5/24.
+//  Copyright © 2016年 IUBCS. All rights reserved.
+//
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+void swap(int &a, int &b)
+{
+    int t = a;
+    a = b;
+    b = t;
+    
+    /*
+    cout<<"****"<<a<<"*****"<<endl;
+    cout<<"****"<<b<<"*****"<<endl;
+    a = a^b; //对相同的数进行未操作会让这个数变为零。原因是当使用&a引用方式的时候，传进函数的是a的地址，那么a=a^b之后，a本身的值已经变了。 所以也就导致后面的值都是零了。
+    cout<<"****"<<a<<"*****"<<endl;
+    cout<<"****"<<b<<"*****"<<endl;
+    b = a^b;
+    cout<<"****"<<a<<"*****"<<endl;
+    cout<<"****"<<b<<"*****"<<endl;
+    a = a^b;
+    cout<<"****"<<a<<"*****"<<endl;
+    cout<<"****"<<b<<"*****"<<endl;
+    */
+}
+
+void transpose(int a[][4], int len)
+{
+    int i,j;
+    /*for(i=0; i<n; ++i)
+        for(j=i+1; j<n; ++j)
+            swap(a[i][j], a[j][i]);
+    for(i=0; i<n/2; ++i)
+        for(j=0; j<n; ++j)
+            swap(a[i][j], a[n-1-i][j]);
+     */
+    /*for(i = len-1; i>=0; i--)
+    {
+        for(j = len-1-i; j>=0; j--)
+            swap(a[i][j] , a[len-1-j][len-1-i]);
+    }
+     */
+    for(i = 0; i<len-1; i++)
+    {
+        for(j = 0; j<len-1-i; j++)
+            swap(a[i][j] , a[len-1-j][len-1-i]);
+    }
+    for(i = 0; i<len/2; i++)
+    {
+        for(j = 0; j<len; j++)
+            swap(a[i][j] , a[len-1-i][j]);
+    }
+}
+
+int main()
+{
+    int a[4][4] = {{1,2,3,4},{5,6,7,8},{9,10,11,12},{13,14,15,16}};
+    int i, j;
+    int len = sizeof(a[0])/sizeof(int);
+    //cout<<len<<endl;
+    for(i = 0; i<len; i++)
+    {    for(j = 0; j<len; j++)
+            cout<<a[i][j]<<' ';
+        cout<<"\n";
+    }
+    transpose(a, len);
+    for(i = 0; i<len; i++)
+    {    for(j = 0; j<len; j++)
+        cout<<a[i][j]<<' ';
+        cout<<"\n";
+    }
+    int f1 = 2, f2 = 2;
+    cout<<&f1<<' '<<&f2<<endl;
+    swap(f1,f2);
+    cout<<&f1<<' '<<&f2<<endl;
+    cout<<f1<<' '<<f2<<endl;
+    return 0;
+}
