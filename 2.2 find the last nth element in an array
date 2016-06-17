@@ -1,0 +1,74 @@
+typedef struct node{
+    int data;
+    node *next;
+}node;
+
+
+int nn = 2;
+int p;
+node* intial(int a[], int n)
+{
+    node *head, *p;
+    int i;
+    for(i = 0; i<n; i++)
+    {
+        node *nd = new node();
+        nd->data = a[i];
+        if(i == 0)
+        {
+            //head->data = a[i];
+            //head->next = p;
+            head = p = nd;
+            //head->next = p;
+            //p->data = nd->data;
+            continue;
+        }
+        //node *nd = new node();
+        //nd->data = a[i];
+        p->next = nd;
+        //p->data = nd->data;
+        p = nd;
+        //p = p->next;
+
+    }
+    return head;
+}
+
+int find_nth_node(node *head)
+{
+    if(head == NULL) return 10000;
+    find_nth_node(head->next);
+    if(nn == 1) p = head->data;
+    nn--;
+    return p;
+}
+
+int find_nth_node2(node *head, int n)
+{
+    if(head == NULL) return 10000;
+    node *p=head, *q=head;
+    while(p)
+    {
+        if(n==0)
+            break;
+        p = p->next;
+        n--;
+    }
+    while(p)
+    {
+        p = p->next;
+        q = q->next;
+    }
+    return q->data;
+}
+
+int main()
+{
+    int n = 5;
+    int a[] = {2,3,10,9,4};
+    node *head = intial(a, n);
+    //find_nth_node(head);
+    int b =find_nth_node2(head, 3);
+    cout<<b<<endl;
+    return 0;
+}
