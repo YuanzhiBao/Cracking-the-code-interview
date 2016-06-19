@@ -34,13 +34,17 @@ node* intial(int a[], int n)
     return head;
 }
 
-int find_nth_node(node *head)
+bool find_nth_node(node *head)
 {
-    if(head == NULL) return 10000;
-    find_nth_node(head->next);
-    if(nn == 1) p = head->data;
-    nn--;
-    return p;
+    if(head == NULL) return false;//递归的解法是建立在每次递归出来之后n减一，当函数到底的时候，就是尾节点的时候，这之后开始往上返回。每层n都减一。 直到n为一的时候返回要的那个值
+    find_nth_node(head->next);//当链表为空的时候. 还要注意一个问题，就是当nn超过链表长度的时候。 这个要注意。
+    if(nn-- == 1) 
+    {
+    p = head->data;
+    return true
+    }
+    //nn--;
+    //return ;
 }
 
 int find_nth_node2(node *head, int n)
