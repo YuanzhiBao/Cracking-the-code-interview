@@ -15,9 +15,6 @@ typedef struct node{
     node *next;
 }node;
 
-//vector <int> hash;
-//memset(hash, 100, sizeof(hash));
-
 
 node* intial(int a[], int n)
 {
@@ -29,20 +26,11 @@ node* intial(int a[], int n)
         nd->data = a[i];
         if(i == 0)
         {
-            //head->data = a[i];
-            //head->next = p;
             head = p = nd;
-            //head->next = p;
-            //p->data = nd->data;
             continue;
         }
-        //node *nd = new node();
-        //nd->data = a[i];
         p->next = nd;
-        //p->data = nd->data;
         p = nd;
-        //p = p->next;
-        
     }
     return head;
 }
@@ -50,14 +38,12 @@ node* intial(int a[], int n)
 node* deleduplicate1(node *head, bool hash[])
 {
     node *p = head, *q = head->next;
-    //if(head ==NULL) return;
-    //p = head, q = head->next;
     hash[head->data] = true;
     while(q)
     {
         if(hash[q->data]==true)
         {
-            //node *t = q;
+            //node *t = q; //可能根据编译器的不同这句可能会需要。 但是这里不需要。
             p->next = q->next;
             q = p->next;
             //delete t;
@@ -76,7 +62,6 @@ void deleduplicate2(node *head)
 {
     node *p, *move1, *move2;
     p = head;
-    //move1 = move2 = head->next;
     while(p)
     {
         int nd = p->data;
@@ -110,17 +95,8 @@ int main()
     node *head = intial(a, n);
     bool hash[100];
     memset(hash, false, sizeof(hash));
-   // int i;
-//    for(i = 0; i<n; i++)
-//    {
-//        cout<<head->data<<endl;
-//        head = head->next;
-//    }
-    
-    //node *head1 = new node();
     deleduplicate2(head);
     
-    //int i;
     while(head)
     {
         cout<<head->data<<endl;
