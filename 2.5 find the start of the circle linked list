@@ -1,0 +1,101 @@
+#include<iostream>
+#include<cstring>
+#include<vector>
+#include<map>
+//#include <hash>
+using namespace std;
+
+typedef struct node
+{
+    int data;
+    node *next;
+}node;
+
+node *inital(int a[], int n)
+{
+    //node *nd = new nod
+    node *head, *move;
+    for(int i = 0; i<n; i++)
+    {
+        node *nd = new node();
+        nd->data = a[i];
+        if(i == 0)
+        {
+            head = move = nd;
+            continue;
+        }
+        else
+        {
+            move->next = nd;
+            move = nd;
+        }
+        
+    }
+    return head;
+}
+
+node *inital2(int a[], int n, int m)
+{
+    node *head, *move, *foot;
+    for(int i = 0; i<n; i++)
+    {
+        node *nd = new node();
+        nd->data = a[i];
+        if(i == 0)
+        {
+            head = move = nd;
+            continue;
+        }
+        else
+        {
+            move->next = nd;
+            move = nd;
+        }
+        if((i+1) == m)
+        {
+            foot = nd;
+        }
+    }
+    move->next = foot;
+    return head;
+}
+
+void print(node *head)
+{
+    node *move = head;
+    while(move)
+    {
+        cout<<move->data<<endl;
+        move = move->next;
+    }
+}
+
+map<node*, bool> hash1;
+//memset(hash, false, sizeof(hash));
+node *findthestart(node *head)
+{
+    node *move1 = head;
+    while(move1){
+        if(hash1[move1])
+        {
+            return move1;
+        }
+        else
+        {
+            hash1[move1] = true;
+            move1 = move1->next;
+        }
+    }
+    return move1;
+}
+
+int main()
+{
+    int a[] = {1,2,3,4,5};
+    int n = sizeof(a)/sizeof(int);
+    node *head = inital2(a, n, 3);
+    //print(head);
+    node *theone = findthestart(head);
+    cout<<theone->data<<endl;
+    return 0;
+}
