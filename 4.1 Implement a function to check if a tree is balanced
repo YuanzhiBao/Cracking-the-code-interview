@@ -64,3 +64,102 @@ int main(){
 	cout<<isBalance(head)<<endl;
 	return 0;
 }
+
+//下面是自己的程序
+
+#include<iostream>
+#include<cmath>
+#include<cstring>
+
+using namespace std;
+
+const int MAXN = 100;
+
+int d = 0, num = 0, dep[10000];
+
+
+struct Node{
+    int key;
+    Node *lchild, *rchild, *parent;
+};
+
+void finddep(Node* head){
+    if(head == NULL) return;
+    d++;
+    finddep(head->lchild);
+    if(head->lchild == NULL && head->rchild == NULL){
+        dep[num++] = d;
+    }
+    finddep(head->rchild);
+    d--;
+}
+
+Node *head,*p,node[MAXN];
+int cnt = 0;
+
+void init(){
+    head = p = NULL;
+    memset(node, NULL, sizeof(node));
+}
+
+void insert(Node* &head, int x){
+    if(head == NULL){
+        node[cnt].key = x;
+        node[cnt].parent = p;
+        head = &node[cnt++];
+        return;
+    }
+    p = head;
+    if(x <= head->key){
+        insert(head->lchild, x);
+    }
+    else{
+        insert(head->rchild, x);
+    }
+}
+
+void print1(Node *&head){
+    if(head == NULL){
+        return;
+    }
+    //Node *p = head;
+    print1(head->lchild);
+    cout<<"key = "<<head->key<<endl;
+    print1(head->rchild);
+}
+
+
+
+//void insert(Node *head, int x){
+//    if(head == NULL){
+//        node[cnt].key = x;
+//        
+//    }
+//    p = head;
+//}
+
+void change(int* &a){
+    *a= 100;
+}
+
+int main(){
+    init();
+    
+    int a[] = {1,2,4,5,6,7,8,92,12,35,10};
+    for(int i=0; i<(sizeof(a)/sizeof(int)); i++){
+        insert(head, a[i]);
+    }
+    for(int i=0; i<(sizeof(a)/sizeof(int)); i++){
+    cout<<node[i].key<<endl;
+    }
+    print1(head);
+    cout<<head<<endl;
+    print1(head);
+    cout<<head<<endl;
+
+    int mei = 10;
+    int *mei2 = &mei;
+    change(mei2);
+    cout<<mei<<endl;
+    return 0;
+}
