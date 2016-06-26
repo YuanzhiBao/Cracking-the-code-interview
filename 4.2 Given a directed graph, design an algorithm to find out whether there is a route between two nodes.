@@ -1,0 +1,80 @@
+#include<iostream>
+#include<cmath>
+#include<cstring>
+#include<cstdio>
+#include<queue>
+#include<stack>
+
+using namespace std;
+int g[100][100] = {0};
+int visited[100] = {0};
+int n, m;
+queue<int> q;
+stack<int> s;
+//DFS 和 BFS 的区别就是一个是用的stack的结构，所以对于DFS我们可以用递归的形式，就相当于是DFS了。
+//BFS用的是队列的形式，先进先出。 所以每次遍历出一个节点所有的邻接节点。 
+
+int Find_Path_BFS(int st, int de){
+    q.push(st);
+    visited[st] = true;
+    while(!q.empty()){
+        int t = q.front();
+        q.pop();
+        if(t == de){
+            return true;
+        }
+        for(int i=0; i<=n; i++){
+            if(g[t][i] && !visited[i]){
+                q.push(i);
+                visited[i] = true;
+            }
+        }
+        
+    }
+    return false;
+}
+
+int Find_Path_DFS(int st, int de){
+    s.push(st);
+    visited[st] = true;
+    while(!s.empty()){
+        int t = s.top();
+        s.pop();
+        if(visited[de] == true){
+            return true;
+        }
+        for( int i = 1; i<= n; i++){
+            if(g[t][i] && !visited[i]){
+                s.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+    return false;
+}
+
+
+
+int main(){
+    freopen("try.txt", "r", stdin);
+    
+    //cout<<fr<<endl;
+    int p1, p2;
+    
+    cin>>n>>m;
+    
+    for(int i = 1; i<=m; i++){
+        cin>>p1>>p2;
+        g[p1][p2] = true;
+    }
+    for(int i = 1; i <=n; i++){
+        for(int j = 1; j<=n; j++){
+            cout<<"g["<<i<<"]"<<"["<<j<<"] = "<<g[i][j]<<"   ";
+        }
+        cout<<endl;
+    }
+    
+    cout<<Find_Path2(5, 2)<<endl;
+    fclose(stdin);
+    return 0;
+}
