@@ -1,0 +1,31 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+
+void swap(char &a, char &b)
+{
+    a = a^b;
+    b = a^b;
+    a = a^b;
+}
+
+void reversel(char *s)
+{
+    if(!s) return;
+    char *p = s, *q = s;
+    while(*q) q++;
+    q--;
+    while(q>p)
+    {
+        swap(*p++, *q--);
+    }
+    //return 0;
+}
+
+int main()
+{
+    char s[] = "afwlgwg"; //char s是当做字符串数组来操作。 s就是第一个字符的地址。
+    reversel(s);
+    cout<< s <<'\n'<<endl;
+    return 0;
+}

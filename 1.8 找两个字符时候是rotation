@@ -1,0 +1,21 @@
+bool isSubstring(string a, string b)
+{
+    if(a.find(b) != string::npos) return true;
+    else return false;
+}
+//用到的function必须在之前声明
+bool isRotation(string a, string b)
+{
+    if(a.length() != b.length() || a.length() == 0 || b.length() == 0) return false;
+   // a = a+a;
+    return isSubstring(a+a, b);
+}
+
+
+int main()
+{
+    string a = "wori";
+    string b = "howw";
+    cout<<isRotation(a, b)<<endl;
+    cout<<(a.find_first_of('w') != string::npos)<<endl;
+}

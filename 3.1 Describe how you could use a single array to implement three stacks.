@@ -1,0 +1,116 @@
+#include<iostream>
+#include <typeinfo>
+
+
+class stack3
+{
+public:
+    stack3(int size = 300)
+    {
+        buf = new int[3*size];
+        ptop[0] = ptop[1] = ptop[2] = -1;
+        this->size = size;
+    }
+    ~stack3(){
+        delete[] buf; //new 和 delete、new[] 和 delete[] 对应使用
+    }
+    void push(int stackNum, int val)
+    {
+        int index = stackNum*size + ptop[stackNum] + 1;
+        buf[index] = val;
+        ++ptop[stackNum];
+    }
+    void pop(int stackNum){
+        --ptop[stackNum];
+    }
+    int top(int stackNum){
+        int index = stackNum*size + ptop[stackNum];
+        return buf[index];
+    }
+    bool empty(int stackNum){
+        return ptop[stackNum]== -1;
+    }
+
+private:
+    int *buf;
+    int ptop[3];
+    int size;
+};
+
+typedef struct node{
+    int val, preIdx;
+}node;
+
+class stack3_1{
+public:
+    stack3_1(int totalSize = 900){
+        buf = new node[totalSize];
+        ptop[0] = ptop[1] = ptop[2] = -1;
+        cur = 0;
+        
+    }
+    ~stack3_1(){
+        delete[] buf;  //new 和 delete、new[] 和 delete[] 对应使用。//这里是对析构函数的使用说明，不是很懂为什么要这么写，buf是开辟的数组内存，析构函数要删除这个
+      这个可以理解，但是为什么不删除其他的呢，比如ptop[]等等。 还是因为ptop的声明不在构造函数里面？
+    }
+    void push(int stackNum, int val){
+        buf[cur].val = val;
+        buf[cur].preIdx = ptop[stackNum];
+        ptop[stackNum] = cur;
+        cur++;
+    }
+    void pop(int stackNum){
+        ptop[stackNum] = buf[ptop[stackNum]].preIdx;
+    }
+    int top(int stackNum){
+        int in = ptop[stackNum];
+        return buf[in].val;
+    }
+    bool empty(int stackNum){
+        return ptop[stackNum] == -1;
+    }
+
+private:
+    int totalSize = 900;
+    int ptop[3];
+    int cur;
+    node *buf;
+};
+
+
+
+using namespace std;
+int main()
+{
+    stack3 mystack1;
+    for(int i=0; i<10; i++){
+        mystack1.push(0, i);
+    }
+    for(int i=100; i<110; i++){
+        mystack1.push(1, i);
+    }
+    for(int i=200; i<210; i++){
+        mystack1.push(2, i);
+    }
+    for(int i=0; i<3; i++){
+        //mystack1.pop(i);
+        cout<<mystack1.top(i)<<endl;
+        mystack1.pop(i);
+    }
+    mystack1.push(0, 150);
+    mystack1.push(1, 250);
+    mystack1.push(2, 350);
+    for(int i=0; i<3; i++){
+        //mystack1.pop(i);
+        cout<<mystack1.top(i)<<endl;
+        mystack1.pop(i);
+    }
+//    nod1 a = {4, 6};//这里对结构体和指向结构体的指针做了测试。以后还是用指向结构体的指针比较合适。
+//    cout<<typeid(a).name()<<endl;
+//    nod1 *b = new nod1();
+//    b->val = 19;
+//    cout<<typeid(b).name()<<endl;
+
+    
+    return 0;
+}

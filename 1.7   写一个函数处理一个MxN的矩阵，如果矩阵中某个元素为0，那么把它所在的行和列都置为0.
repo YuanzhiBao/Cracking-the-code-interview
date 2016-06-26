@@ -1,0 +1,54 @@
+void change(int a[][4], int n, int m)
+{
+    bool row[n], col[m];
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        {
+            if(a[i][j] == 0)
+            {
+                row[i] = true;
+                col[j] = true;
+            }
+        }
+    }
+    
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<m; j++)
+        {
+            if(row[i] || col[j])
+            {
+                a[i][j] = 0;
+            }
+        }
+    }
+    
+    return;
+}
+
+
+void change(int **a)
+{
+    cout<<"hello"<<endl;
+}
+
+
+int main()
+{
+    int a[4][4] = {{1,2,3,4},{5,0,7,8},{9,10,11,12},{13,14,15,16}};
+    int i, j;
+    int column = sizeof(a[0])/sizeof(int);
+    int row = sizeof(a)/(column*sizeof(int));
+    cout<<column<<"    "<<row<<endl;
+    
+    change(a, row, column);
+    
+    
+    for(i = 0; i<row; i++)
+    {    for(j = 0; j<column; j++)
+            cout<<a[i][j]<<' ';
+        cout<<"\n";
+    }
+}
+
